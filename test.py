@@ -24,7 +24,7 @@ def main():
     st.write("Use the button below to start the webcam video feed.")
 
     # Display video feed using webrtc_streamer
-    webrtc_streamer(key="webcam", video_processor_factory=WebcamVideoTransformer())
+    webrtc_streamer(key="webcam", video_processor_factory=WebcamVideoTransformer)
 
 
 if __name__ == "__main__":
