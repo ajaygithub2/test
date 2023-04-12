@@ -8,7 +8,7 @@ class WebcamVideoTransformer(VideoTransformerBase):
         self.width = None
         self.height = None
 
-    def recv(self, frame):
+    def transform(self, frame):
         return frame
 
     def on_receive(self, frame):
@@ -24,7 +24,7 @@ def main():
     st.write("Use the button below to start the webcam video feed.")
 
     # Display video feed using webrtc_streamer
-    webrtc_streamer(key="webcam", video_processor_factory=WebcamVideoTransformer)
+    webrtc_streamer(key="webcam", video_processor_factory=WebcamVideoTransformer())
 
 
 if __name__ == "__main__":
