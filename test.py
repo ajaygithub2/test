@@ -1,5 +1,5 @@
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase, WebRtcMode
 
 
 # Define a custom VideoTransformer class to handle video frames
@@ -24,7 +24,7 @@ def main():
     st.write("Use the button below to start the webcam video feed.")
 
     # Display video feed using webrtc_streamer
-    webrtc_streamer(key="webcam", video_processor_factory=WebcamVideoTransformer)
+    webrtc_streamer(key="webcam", video_processor_factory=WebcamVideoTransformer, mode=WebRtcMode.SENDRECV)
 
 
 if __name__ == "__main__":
