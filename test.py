@@ -1,33 +1,31 @@
 import streamlit as st
-from streamlit_webrtc import VideoTransformerBase, webrtc_streamer, WebRtcMode
+from streamlit_webrtc import webrtc_streamer, VideoTransformerBase
 
-# Create a custom video transformer by inheriting from VideoTransformerBase
-class WebcamTransformer(VideoTransformerBase):
+
+# Define a custom VideoTransformer class to handle video frames
+class WebcamVideoTransformer(VideoTransformerBase):
     def __init__(self):
-        self.frame = None
+        self.width = None
+        self.height = None
 
-    # Override the transform method to process each video frame
     def transform(self, frame):
-        self.frame = frame.to_ndarray(format="rgb24")  # Convert the frame to a numpy array
+        return frame
 
-        # Return the processed frame, side, and surity
-        return self.frame
+    def on_receive(self, frame):
+        if self.width is None or self.height is None:
+            self.width = frame.width
+            self.height = frame.height
+        return frame
 
-    # Override the emit method to return the processed frame
-    def emit(self):
-        return self.frame
 
-# Create a Streamlit app
-def app():
-    st.title("Webcam Feed")
+# Streamlit app
+def main():
+    st.title("Webcam Video Feed")
+    st.write("Use the button below to start the webcam video feed.")
 
-    # Use the webrtc_streamer function to capture video from the webcam
-    webrtc_ctx = webrtc_streamer(
-        key="webcam",
-        mode=WebRtcMode.SENDRECV,  # Specify the mode as SENDRECV
-        video_processor_factory=WebcamTransformer,
-    )
+    # Display video feed using webrtc_streamer
+    webrtc_streamer(key="webcam", video_processor_factory=WebcamVideoTransformer)
 
 
 if __name__ == "__main__":
-    app()
+    main()
