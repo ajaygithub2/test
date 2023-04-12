@@ -27,7 +27,7 @@ def app():
     webrtc_ctx = webrtc_streamer(
         key="webcam",
         mode=WebRtcMode.SENDRECV,  # Specify the mode as SENDRECV
-        video_transformer_factory=WebcamTransformer,
+        video_processor_factory=WebcamTransformer,
     )
 
     # Display the video feed and captured frames
